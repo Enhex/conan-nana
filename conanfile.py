@@ -33,12 +33,14 @@ conan_basic_setup()''')
 		self.copy("*.hpp", dst="include", src="include")
 		self.copy("*pop_ignore_diagnostic", dst="include", src="include")
 		self.copy("*push_ignore_diagnostic", dst="include", src="include")
-		self.copy("*nana.lib", dst="lib", keep_path=False)
+		self.copy("*.lib", dst="lib", keep_path=False)
 		self.copy("*.dll", dst="bin", keep_path=False)
 		self.copy("*.so", dst="lib", keep_path=False)
 		self.copy("*.dylib", dst="lib", keep_path=False)
 		self.copy("*.a", dst="lib", keep_path=False)
 
 	def package_info(self):
-		self.cpp_info.libs = ["nana"]
-
+		if self.settings.build_type == "Debug":
+			self.cpp_info.libs = ["nana_d"]
+		else:
+			self.cpp_info.libs = ["nana"]
